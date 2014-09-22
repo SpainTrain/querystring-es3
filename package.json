@@ -1,7 +1,7 @@
 {
   "name": "querystring-es3",
   "id": "querystring-es3",
-  "version": "0.2.1-0",
+  "version": "0.2.1",
   "description": "Node's querystring module for all engines. (ES3 compat fork)",
   "keywords": [ "commonjs", "query", "querystring" ],
   "author": "Irakli Gozalishvili <rfobic@gmail.com>",
