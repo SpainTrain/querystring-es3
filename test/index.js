@@ -23,6 +23,7 @@
 
 // test using assert
 var assert = require('assert')
+var JSON = require('json3')
 var qs = require('../');
 
 // folding block, commented to pass gjslint
@@ -105,7 +106,7 @@ describe('querystring-es3', function() {
   it('test basic', function() {
     assert.strictEqual('918854443121279438895193',
                      qs.parse('id=918854443121279438895193').id,
-                     'prase id=918854443121279438895193');
+                     'parse id=918854443121279438895193');
   })
 
   it('test that the canonical qs is parsed properly', function() {
@@ -153,7 +154,9 @@ describe('querystring-es3', function() {
   it('test stringifying', function() {
     qsTestCases.forEach(function(testCase) {
       assert.equal(testCase[1], qs.stringify(testCase[2]),
-                   'stringify ' + JSON.stringify(testCase[2]));
+                   'stringify ' + JSON.stringify(testCase[2]) +
+                   '\nexpected ' + testCase[1] +
+                   '\ngot ' + qs.stringify(testCase[2]));
     });
 
     qsColonTestCases.forEach(function(testCase) {
@@ -189,7 +192,7 @@ describe('querystring-es3', function() {
     assert.ok(!threw, "does not throws on undefined");
   })
 
-  it('test nested in colon', function() {
+  it('test nested in colon again?', function() {
     var f = qs.stringify({
       a: 'b',
       q: qs.stringify({
@@ -210,3 +213,67 @@ describe('querystring-es3', function() {
     assert.deepEqual({}, qs.parse(), 'parse undefined');
   })
 })
+
+// Production steps of ECMA-262, Edition 5, 15.4.4.18
+// Reference: http://es5.github.io/#x15.4.4.18
+if (!Array.prototype.forEach) {
+
+  Array.prototype.forEach = function(callback/*, thisArg*/) {
+
+    var T, k;
+
+    if (this == null) {
+      throw new TypeError('this is null or not defined');
+    }
+
+    // 1. Let O be the result of calling toObject() passing the
+    // |this| value as the argument.
+    var O = Object(this);
+
+    // 2. Let lenValue be the result of calling the Get() internal
+    // method of O with the argument "length".
+    // 3. Let len be toUint32(lenValue).
+    var len = O.length >>> 0;
+
+    // 4. If isCallable(callback) is false, throw a TypeError exception.
+    // See: http://es5.github.com/#x9.11
+    if (typeof callback !== 'function') {
+      throw new TypeError(callback + ' is not a function');
+    }
+
+    // 5. If thisArg was supplied, let T be thisArg; else let
+    // T be undefined.
+    if (arguments.length > 1) {
+      T = arguments[1];
+    }
+
+    // 6. Let k be 0
+    k = 0;
+
+    // 7. Repeat, while k < len
+    while (k < len) {
+
+      var kValue;
+
+      // a. Let Pk be ToString(k).
+      //    This is implicit for LHS operands of the in operator
+      // b. Let kPresent be the result of calling the HasProperty
+      //    internal method of O with argument Pk.
+      //    This step can be combined with c
+      // c. If kPresent is true, then
+      if (k in O) {
+
+        // i. Let kValue be the result of calling the Get internal
+        // method of O with argument Pk.
+        kValue = O[k];
+
+        // ii. Call the Call internal method of callback with T as
+        // the this value and argument list containing kValue, k, and O.
+        callback.call(T, kValue, k, O);
+      }
+      // d. Increase k by 1.
+      k++;
+    }
+    // 8. return undefined
+  };
+}

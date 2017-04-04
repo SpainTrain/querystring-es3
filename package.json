@@ -36,6 +36,7 @@
     "browserify": "~14.1.0",
     "chai": "~3.5.0",
     "eslint": "~3.13.0",
+    "json3": "~3.3.2",
     "karma": "~1.5.0",
     "karma-chai": "~0.1.0",
     "karma-commonjs": "~1.0.0",
