@@ -28,11 +28,16 @@ module.exports = function (config) {
 
     config.set({
         basePath: '',
-        frameworks: ['mocha'],
+        frameworks: ['mocha', 'chai', 'commonjs'],
         files: [
-            'src/*.js',
+            'encode.js',
+            'decode.js',
+            'index.js',
             'test/*.js'
         ],
+        preprocessors: {
+            '**/*.js': ['commonjs']
+        },
         reporters: ['progress', 'saucelabs'],
         port: 9876,
         colors: true,

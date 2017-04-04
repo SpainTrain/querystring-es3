@@ -1,15 +1,22 @@
 {
   "name": "querystring-es3",
   "id": "querystring-es3",
-  "version": "0.2.1",
-  "description": "Node's querystring module for all engines. (ES3 compat fork)",
+  "version": "0.3.0",
+  "main": "dist/index.js",
+  "description": "Node API compliant querystring module for all browsers. (ES3 compatible)",
+  "scripts": {
+    "build": "babel src -d dist",
+    "test": "npm-run-all test:*",
+    "test:karma": "karma start",
+    "test:mocha": "mocha ./test/*.js"
+  },
   "keywords": [
     "commonjs",
     "query",
     "querystring",
     "es3"
   ],
-  "author": "Irakli Gozalishvili <rfobic@gmail.com>",
+  "author": "SpainTrain <mcspainhower+npm@gmail.com>",
   "repository": {
     "type": "git",
     "url": "git://github.com/SpainTrain/querystring-es3.git",
@@ -19,31 +26,30 @@
     "url": "http://github.com/SpainTrain/querystring-es3/issues/"
   },
   "devDependencies": {
+    "assert": "~1.4.1",
+    "babel-cli": "~6.24.0",
+    "babel-preset-es2015": "~6.24.0",
+    "babel-preset-es2016": "~6.22.0",
+    "babel-preset-es2017": "~6.22.0",
+    "babel-preset-es3": "~1.0.1",
+    "babelify": "~7.3.0",
+    "browserify": "~14.1.0",
     "chai": "~3.5.0",
-    "codecov": "~2.1.0",
-    "dotenv-cli": "~1.1.1",
+    "eslint": "~3.13.0",
     "karma": "~1.5.0",
+    "karma-chai": "~0.1.0",
+    "karma-commonjs": "~1.0.0",
     "karma-mocha": "~1.3.0",
     "karma-sauce-launcher": "~1.1.0",
     "mocha": "~3.2.0",
-    "phantomify": "~0.x.0",
-    "retape": "~0.x.0",
-    "tape": "~0.1.5",
-    "test": "~0.x.0"
+    "npm-run-all": "~4.0.2",
+    "zuul": "~3.11.1"
   },
   "engines": {
     "node": ">=0.4.x"
   },
-  "scripts": {
-    "test": "npm run test-node && npm run test-browser && npm run test-tap",
-    "test-browser": "node ./node_modules/phantomify/bin/cmd.js ./test/common-index.js",
-    "test-node": "node ./test/common-index.js",
-    "test-tap": "node ./test/tap-index.js"
-  },
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "https://github.com/Gozala/enchain/License.md"
-    }
-  ]
+  "license": "MIT",
+  "dependencies": {
+    "buffer": "~5.0.5"
+  }
 }

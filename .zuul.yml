@@ -1,0 +1,8 @@
+ui: mocha-bdd
+browsers:
+  - name: chrome
+    version: [dev]
+  - name: ie
+    version: [8]
+browserify:
+  - transform: babelify
