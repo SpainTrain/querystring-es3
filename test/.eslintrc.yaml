@@ -67,9 +67,6 @@ rules:
   no-restricted-properties:
     - 2
     - object: assert
-      property: equal
-      message: Use assert.strictEqual() rather than assert.equal().
-    - object: assert
       property: notEqual
       message: Use assert.notStrictEqual() rather than assert.notEqual().
     - property: __defineGetter__
