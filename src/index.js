@@ -265,7 +265,6 @@ const defEqCodes = [61]; // =
 
 // Parse a key/val string.
 function parse(qs, sep, eq, options) {
-  // const obj = {};
   const obj = new ParsedQueryString();
 
   if (typeof qs !== 'string' || qs.length === 0) {
@@ -295,6 +294,7 @@ function parse(qs, sep, eq, options) {
   const customDecode = (decode !== qsUnescape);
 
   const keys = [];
+  var posIdx = 0;
   var lastPos = 0;
   var sepIdx = 0;
   var eqIdx = 0;
@@ -322,26 +322,34 @@ function parse(qs, sep, eq, options) {
           key = decodeStr(key, decode);
         if (valEncoded)
           value = decodeStr(value, decode);
-        // Use a key array lookup instead of using hasOwnProperty(), which is
-        // slower
-        if (keys.indexOf(key) === -1) {
-          obj[key] = value;
-          keys[keys.length] = key;
-        } else {
-          const curValue = obj[key];
-          // A simple Array-specific property check is enough here to
-          // distinguish from a string value and is faster and still safe since
-          // we are generating all of the values being assigned.
-          if (curValue.pop)
-            curValue[curValue.length] = value;
-          else
-            obj[key] = [curValue, value];
+
+        if (key || value || lastPos - posIdx > sepLen || i === 0) {
+          // Use a key array lookup instead of using hasOwnProperty(), which is
+          // slower
+          if (keys.indexOf(key) === -1) {
+            obj[key] = value;
+            keys[keys.length] = key;
+          } else {
+            const curValue = obj[key] || '';
+            // A simple Array-specific property check is enough here to
+            // distinguish from a string value and is faster and still safe
+            // since we are generating all of the values being assigned.
+            if (curValue.pop)
+              curValue[curValue.length] = value;
+            else if (curValue)
+              obj[key] = [curValue, value];
+          }
+        } else if (i === 1) {
+          // A pair with repeated sep could be added into obj in the first loop
+          // and it should be deleted
+          delete obj[key];
         }
         if (--pairs === 0)
           break;
         keyEncoded = valEncoded = customDecode;
         encodeCheck = 0;
         key = value = '';
+        posIdx = lastPos;
         lastPos = i + 1;
         sepIdx = eqIdx = 0;
       }
