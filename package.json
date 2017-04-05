@@ -6,9 +6,10 @@
   "description": "Node API compliant querystring module for all browsers. (ES3 compatible)",
   "scripts": {
     "build": "babel src -d dist",
-    "test": "npm-run-all test:*",
+    "test": "npm-run-all build test:*",
     "test:karma": "karma start",
-    "test:mocha": "mocha ./test/*.js"
+    "test:mocha": "mocha --require babel-register ./test/*.js",
+    "test:zuul": "zuul -- test"
   },
   "keywords": [
     "commonjs",
@@ -32,6 +33,7 @@
     "babel-preset-es2016": "~6.22.0",
     "babel-preset-es2017": "~6.22.0",
     "babel-preset-es3": "~1.0.1",
+    "babel-register": "~6.24.0",
     "babelify": "~7.3.0",
     "browserify": "~14.1.0",
     "chai": "~3.5.0",
@@ -44,6 +46,7 @@
     "karma-sauce-launcher": "~1.1.0",
     "mocha": "~3.2.0",
     "npm-run-all": "~4.0.2",
+    "object-inspect": "~1.2.2",
     "zuul": "~3.11.1"
   },
   "engines": {

@@ -21,8 +21,8 @@ const Buffer = require('buffer').Buffer;
 // This constructor is used to store parsed query string values. Instantiating
 // this is faster than explicitly calling `Object.create(null)` to get a
 // "clean" empty object (tested with v8 v4.9).
-// function ParsedQueryString() {}
-// ParsedQueryString.prototype = Object.create(null);
+function ParsedQueryString() {}
+ParsedQueryString.prototype = Object.create ? Object.create(null) : {}; // IE8
 
 const unhexTable = [
   -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, // 0 - 15
@@ -265,7 +265,8 @@ const defEqCodes = [61]; // =
 
 // Parse a key/val string.
 function parse(qs, sep, eq, options) {
-  const obj = {};
+  // const obj = {};
+  const obj = new ParsedQueryString();
 
   if (typeof qs !== 'string' || qs.length === 0) {
     return obj;
