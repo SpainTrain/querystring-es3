@@ -1,8 +1,25 @@
 ui: mocha-bdd
+
 browsers:
   - name: chrome
-    version: [dev]
+    version: [26, latest, beta, dev]
+  - name: android
+    version: 4.4..latest
+
+  - name: firefox
+    version: [4, latest, beta, dev]
+
+  - name: safari
+    version: 5..10
+  - name: iphone
+    version: [8.1, 9.0, -1, latest]
+  - name: ipad
+    version: [8.1, 9.0, -1, latest]
+
   - name: ie
-    version: [8]
+    version: 8..11
+  - name: microsoftedge
+    version: -1..latest
+
 browserify:
   - transform: babelify

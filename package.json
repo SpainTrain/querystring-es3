@@ -6,8 +6,9 @@
   "description": "Node API compliant querystring module for all browsers. (ES3 compatible)",
   "scripts": {
     "build": "babel src -d dist",
+    "prepare": "npm run build",
+    "prepublish": "npm run build",
     "test": "npm-run-all build test:*",
-    "test:karma": "karma start",
     "test:mocha": "mocha --require babel-register ./test/*.js",
     "test:zuul": "zuul -- test"
   },
@@ -39,21 +40,16 @@
     "chai": "~3.5.0",
     "eslint": "~3.13.0",
     "json3": "~3.3.2",
-    "karma": "~1.5.0",
-    "karma-chai": "~0.1.0",
-    "karma-commonjs": "~1.0.0",
-    "karma-mocha": "~1.3.0",
-    "karma-sauce-launcher": "~1.1.0",
     "mocha": "~3.2.0",
     "npm-run-all": "~4.0.2",
     "object-inspect": "~1.2.2",
     "zuul": "~3.11.1"
   },
   "engines": {
-    "node": ">=0.4.x"
+    "node": ">=4"
   },
   "license": "MIT",
   "dependencies": {
-    "buffer": "~5.0.5"
+    "buffer": "5.0.5"
   }
 }

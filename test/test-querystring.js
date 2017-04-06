@@ -30,10 +30,10 @@ const inspect = require('object-inspect');
 const objectKeys = require('../src/object-keys');
 const qs = require('../');
 
-const isIE8 = !Object.create;
+const hasObjectCreate = !Object.create;
 
 function createWithNoPrototype(properties) {
-  const noProto = !isIE8 ? Object.create(null) : {}; // IE8
+  const noProto = !hasObjectCreate ? Object.create(null) : {};
   properties.forEach((property) => {
     noProto[property.key] = property.value;
   });
@@ -41,9 +41,10 @@ function createWithNoPrototype(properties) {
 }
 
 const qsTestCases = [
-  ['__proto__=1',
-   '__proto__=1',
-   createWithNoPrototype([{key: '__proto__', value: '1'}])],
+  !hasObjectCreate ? ['', '', {}] : [
+      '__proto__=1',
+      '__proto__=1',
+      createWithNoPrototype([{key: '__proto__', value: '1'}])],
   ['__defineGetter__=asdf',
    '__defineGetter__=asdf',
    JSON.parse('{"__defineGetter__":"asdf"}')],
@@ -69,7 +70,7 @@ const qsTestCases = [
   ['foo=%EF%BF%BD', 'foo=%EF%BF%BD', {'foo': '\ufffd' }],
   // See: https://github.com/joyent/node/issues/1707
   ['hasOwnProperty=x&toString=foo&valueOf=bar&__defineGetter__=baz',
-   isIE8 ?
+   hasObjectCreate ?
       '__defineGetter__=baz&toString=foo&valueOf=bar&hasOwnProperty=x' :
       'hasOwnProperty=x&toString=foo&valueOf=bar&__defineGetter__=baz',
    { hasOwnProperty: 'x',
