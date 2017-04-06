@@ -8,11 +8,11 @@ const qs = require('..');
 
 describe('test-querystring-escape', function() {
   it('does basic escaping', function() {
-    assert.deepStrictEqual(qs.escape(5), '5');
-    assert.deepStrictEqual(qs.escape('test'), 'test');
-    assert.deepStrictEqual(qs.escape({}), '%5Bobject%20Object%5D');
-    assert.deepStrictEqual(qs.escape([5, 10]), '5%2C10');
-    assert.deepStrictEqual(qs.escape('Ŋōđĕ'), '%C5%8A%C5%8D%C4%91%C4%95');
+    assert.deepEqual(qs.escape(5), '5');
+    assert.deepEqual(qs.escape('test'), 'test');
+    assert.deepEqual(qs.escape({}), '%5Bobject%20Object%5D');
+    assert.deepEqual(qs.escape([5, 10]), '5%2C10');
+    assert.deepEqual(qs.escape('Ŋōđĕ'), '%C5%8A%C5%8D%C4%91%C4%95');
   });
 
   it('using toString for objects', function() {

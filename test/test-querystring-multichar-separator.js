@@ -8,10 +8,12 @@ const qs = require('..');
 
 function check(actual, expected) {
   assert(!(actual instanceof Object));
-  assert.deepStrictEqual(objectKeys(actual).sort(),
-                         objectKeys(expected).sort());
+  assert.deepEqual(
+    objectKeys(actual).sort(),
+    objectKeys(expected).sort(),
+  );
   objectKeys(expected).forEach(function(key) {
-    assert.deepStrictEqual(actual[key], expected[key]);
+    assert.deepEqual(actual[key], expected[key]);
   });
 }
 
