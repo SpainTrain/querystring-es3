@@ -64,8 +64,9 @@ if (!Array.prototype.forEach) {
   };
 }
 
+const isIE8 = document.documentMode === 8; // eslint-disable-line no-undef
 
 require('./test-querystring');
 require('./test-querystring-escape');
-require('./test-querystring-maxKeys-non-finite');
+!isIE8 && require('./test-querystring-maxKeys-non-finite');
 require('./test-querystring-multichar-separator');
