@@ -24,7 +24,7 @@ browsers:
 browserify:
   - transform: babelify
 
-concurrency: 1
+# concurrency: 1
 # tunnel:
 #   type: ngrok
 #   bind_tls: true
