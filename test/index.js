@@ -64,7 +64,8 @@ if (!Array.prototype.forEach) {
   };
 }
 
-const isIE8 = document.documentMode === 8; // eslint-disable-line no-undef
+// eslint-disable-next-line no-undef
+const isIE8 = typeof document != 'undefined' && document.documentMode === 8;
 
 require('./test-querystring');
 require('./test-querystring-escape');
