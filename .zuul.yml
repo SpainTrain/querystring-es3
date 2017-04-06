@@ -1,0 +1,30 @@
+ui: mocha-bdd
+
+browsers:
+  - name: chrome
+    version: [26, latest]
+  - name: android
+    version: [4.4, latest]
+
+  - name: firefox
+    version: [4, latest]
+
+  - name: safari
+    version: [5, 6, latest]
+  - name: iphone
+    version: [8.1, latest]
+  - name: ipad
+    version: [8.1, latest]
+
+  - name: ie
+    version: 8..11
+  - name: microsoftedge
+    version: -1..latest
+
+browserify:
+  - transform: babelify
+
+concurrency: 1
+# tunnel:
+#   type: ngrok
+#   bind_tls: true
