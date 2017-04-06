@@ -1,4 +1,4 @@
-# querystring
+# querystring-es3
 
 [![Build Status](https://travis-ci.org/SpainTrain/querystring-es3.svg?branch=master)](https://travis-ci.org/SpainTrain/querystring-es3)
 
