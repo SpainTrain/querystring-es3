@@ -20,6 +20,10 @@ const QueryString = module.exports = {
 const Buffer = require('buffer').Buffer;
 const objectKeys = require('./object-keys');
 
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/isArray
+const isArray = (arg) =>
+    Object.prototype.toString.call(arg) === '[object Array]';
+
 // This constructor is used to store parsed query string values. Instantiating
 // this is faster than explicitly calling `Object.create(null)` to get a
 // "clean" empty object (tested with v8 v4.9).
@@ -233,7 +237,7 @@ function stringify(obj, sep, eq, options) {
       var v = obj[k];
       var ks = encode(stringifyPrimitive(k)) + eq;
 
-      if (Array.isArray(v)) {
+      if (isArray(v)) {
         var vlen = v.length;
         var vlast = vlen - 1;
         for (var j = 0; j < vlen; ++j) {
@@ -527,12 +531,5 @@ if (!Array.prototype.indexOf) {
       k++;
     }
     return -1;
-  };
-}
-
-// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/isArray
-if (!Array.isArray) {
-  Array.isArray = function(arg) {
-    return Object.prototype.toString.call(arg) === '[object Array]';
   };
 }
