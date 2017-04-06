@@ -21,7 +21,7 @@ browsers:
   - name: microsoftedge
     version: -1..latest
 
-browser_open_timeout: 600
+browser_open_timeout: 999999999
 
 browserify:
   - transform: babelify
