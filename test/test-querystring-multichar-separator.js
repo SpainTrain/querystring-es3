@@ -7,7 +7,7 @@ const objectKeys = require('../src/object-keys');
 const qs = require('..');
 
 function check(actual, expected) {
-  assert(!(actual instanceof Object));
+  Object.create && assert(!(actual instanceof Object));
   assert.deepEqual(
     objectKeys(actual).sort(),
     objectKeys(expected).sort(),
@@ -24,7 +24,7 @@ describe('test-querystring-multichar-separator', function() {
       {foo: 'bar', bar: 'baz'},
     );
 
-    check(
+    assert.equal(
       qs.stringify({foo: 'bar', bar: 'baz'}, '&&', '=>'),
       'foo=>bar&&bar=>baz',
     );
@@ -34,7 +34,9 @@ describe('test-querystring-multichar-separator', function() {
       {foo: 'bar', bar: 'baz'},
     );
 
-    check(qs.stringify({foo: 'bar', bar: 'baz'}, ', ', '==>'),
-          'foo==>bar, bar==>baz');
+    assert.equal(
+      qs.stringify({foo: 'bar', bar: 'baz'}, ', ', '==>'),
+      'foo==>bar, bar==>baz',
+    );
   });
 });
