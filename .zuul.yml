@@ -10,7 +10,7 @@ browsers:
     version: [4, latest]
 
   - name: safari
-    version: [5, 6]
+    version: [5, 6, latest]
   - name: iphone
     version: [8.1, latest]
   - name: ipad
@@ -20,6 +20,8 @@ browsers:
     version: 8..11
   - name: microsoftedge
     version: -1..latest
+
+browser_open_timeout: 600
 
 browserify:
   - transform: babelify
