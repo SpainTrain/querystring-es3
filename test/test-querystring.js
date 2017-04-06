@@ -24,10 +24,11 @@
 'use strict';
 
 // test using assert
-var assert = require('assert');
-var JSON = require('json3');
+const assert = require('assert');
+const JSON = require('json3');
 const inspect = require('object-inspect');
-var qs = require('../');
+const objectKeys = require('../src/object-keys');
+const qs = require('../');
 
 const isIE8 = !Object.create;
 
@@ -151,8 +152,8 @@ function check(actual, expected, input) {
   if (Object.create) {
     assert(!(actual instanceof Object));
   }
-  const actualKeys = Object.keys(actual).sort();
-  const expectedKeys = Object.keys(expected).sort();
+  const actualKeys = objectKeys(actual).sort();
+  const expectedKeys = objectKeys(expected).sort();
   let msg;
   if (typeof input === 'string') {
     msg = `Input: ${inspect(input)}\n` +
@@ -307,7 +308,7 @@ describe('test-querystring', function() {
 
   it('Test limiting', function() {
     assert.equal(
-      Object.keys(qs.parse('a=1&b=1&c=1', null, null, { maxKeys: 1 })).length,
+      objectKeys(qs.parse('a=1&b=1&c=1', null, null, { maxKeys: 1 })).length,
       1,
     );
   });
@@ -319,7 +320,7 @@ describe('test-querystring', function() {
         for (var i = 0; i < 2000; i++) query[i] = i;
         const url = qs.stringify(query);
         assert.equal(
-            Object.keys(qs.parse(url, null, null, { maxKeys: 0 })).length,
+            objectKeys(qs.parse(url, null, null, { maxKeys: 0 })).length,
             2000);
       }
       testUnlimitedKeys();

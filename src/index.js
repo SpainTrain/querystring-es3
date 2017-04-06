@@ -16,7 +16,9 @@ const QueryString = module.exports = {
   parse,
   decode: parse
 };
+
 const Buffer = require('buffer').Buffer;
+const objectKeys = require('./object-keys');
 
 // This constructor is used to store parsed query string values. Instantiating
 // this is faster than explicitly calling `Object.create(null)` to get a
@@ -222,7 +224,7 @@ function stringify(obj, sep, eq, options) {
   }
 
   if (obj !== null && typeof obj === 'object') {
-    var keys = Object.keys(obj);
+    var keys = objectKeys(obj);
     var len = keys.length;
     var flast = len - 1;
     var fields = '';
@@ -465,50 +467,6 @@ function decodeStr(s, decoder) {
   }
 }
 
-// From https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/keys
-if (!Object.keys) {
-  Object.keys = (function() {
-    var hasOwnProperty = Object.prototype.hasOwnProperty;
-    var hasDontEnumBug = !({ toString: null }).propertyIsEnumerable('toString');
-    var dontEnums = [
-      'toString',
-      'toLocaleString',
-      'valueOf',
-      'hasOwnProperty',
-      'isPrototypeOf',
-      'propertyIsEnumerable',
-      'constructor'
-    ];
-    var dontEnumsLength = dontEnums.length;
-
-    return function(obj) {
-      if (
-        typeof obj !== 'function' && (typeof obj !== 'object' || obj === null)
-      ) {
-        throw new TypeError('Object.keys called on non-object');
-      }
-
-      var result = [];
-      var prop;
-      var i;
-
-      for (prop in obj) {
-        if (hasOwnProperty.call(obj, prop)) {
-          result.push(prop);
-        }
-      }
-
-      if (hasDontEnumBug) {
-        for (i = 0; i < dontEnumsLength; i++) {
-          if (hasOwnProperty.call(obj, dontEnums[i])) {
-            result.push(dontEnums[i]);
-          }
-        }
-      }
-      return result;
-    };
-  }());
-}
 
 // Production steps of ECMA-262, Edition 5, 15.4.4.14
 // Reference: http://es5.github.io/#x15.4.4.14

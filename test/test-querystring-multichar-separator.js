@@ -3,13 +3,14 @@
 'use strict';
 
 const assert = require('assert');
+const objectKeys = require('../src/object-keys');
 const qs = require('..');
 
 function check(actual, expected) {
   assert(!(actual instanceof Object));
-  assert.deepStrictEqual(Object.keys(actual).sort(),
-                         Object.keys(expected).sort());
-  Object.keys(expected).forEach(function(key) {
+  assert.deepStrictEqual(objectKeys(actual).sort(),
+                         objectKeys(expected).sort());
+  objectKeys(expected).forEach(function(key) {
     assert.deepStrictEqual(actual[key], expected[key]);
   });
 }

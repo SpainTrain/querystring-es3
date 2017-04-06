@@ -6,6 +6,7 @@
 // https://github.com/nodejs/node/pull/2288#issuecomment-179543894
 
 const assert = require('assert');
+const objectKeys = require('../src/object-keys');
 const parse = require('..').parse;
 
 /*
@@ -49,15 +50,15 @@ describe('test-querystring-maxKeys-non-finite', function() {
   const resultNaNString = parse(params, undefined, undefined, {maxKeys: 'NaN'});
 
   it('Non Finite maxKeys should return the length of input', function() {
-    assert.equal(Object.keys(resultInfinity).length, count);
-    assert.equal(Object.keys(resultNaN).length, count);
+    assert.equal(objectKeys(resultInfinity).length, count);
+    assert.equal(objectKeys(resultNaN).length, count);
   });
 
   it(
     'Strings maxKeys should return the maxLength defined by parses internals',
     function() {
-      assert.equal(Object.keys(resultInfinityString).length, originalMaxLength);
-      assert.equal(Object.keys(resultNaNString).length, originalMaxLength);
+      assert.equal(objectKeys(resultInfinityString).length, originalMaxLength);
+      assert.equal(objectKeys(resultNaNString).length, originalMaxLength);
     },
   );
 });
