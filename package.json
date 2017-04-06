@@ -9,8 +9,8 @@
     "prepare": "npm run build",
     "prepublish": "npm run build",
     "test": "npm-run-all build test:*",
-    "test:mocha": "mocha --require babel-register ./test/*.js",
-    "test:zuul": "zuul -- test"
+    "test:mocha": "mocha --require babel-register ./test/index.js",
+    "test:zuul": "zuul --no-coverage -- test"
   },
   "keywords": [
     "commonjs",
@@ -37,7 +37,6 @@
     "babel-register": "~6.24.0",
     "babelify": "~7.3.0",
     "browserify": "~14.1.0",
-    "chai": "~3.5.0",
     "eslint": "~3.13.0",
     "json3": "~3.3.2",
     "mocha": "~3.2.0",

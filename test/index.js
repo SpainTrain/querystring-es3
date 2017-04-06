@@ -66,3 +66,6 @@ if (!Array.prototype.forEach) {
 
 
 require('./test-querystring');
+require('./test-querystring-escape');
+require('./test-querystring-maxKeys-non-finite');
+require('./test-querystring-multichar-separator');

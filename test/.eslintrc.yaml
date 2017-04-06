@@ -1,3 +1,5 @@
+# https://github.com/nodejs/node/blob/v6.10.2/.eslintrc.yaml
+
 env:
   mocha: true
   node: true
