@@ -1,7 +1,7 @@
 {
   "name": "querystring-es3",
   "id": "querystring-es3",
-  "version": "0.3.0",
+  "version": "1.0.0-0",
   "main": "dist/index.js",
   "description": "Node API compliant querystring module for all browsers. (ES3 compatible)",
   "scripts": {
